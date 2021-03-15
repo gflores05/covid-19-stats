@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es5",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@covid19/services": ["src/services/index.ts"],
+      "@covid19/controllers": ["src/controllers/index.ts"]
+    },
+    "outDir": "./dist",
+    "types": ["node"]
+  },
+  "exclude": ["node_modules", "tmp", "**/*.spec.ts"],
+  "include": ["**/*.ts"]
+}
