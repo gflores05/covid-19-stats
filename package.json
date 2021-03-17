@@ -1,0 +1,24 @@
+{
+  "name": "covid-19-stats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format:write": "prettier --write \"**/*.(ts|js)\"",
+    "format:check": "prettier --check \"**/*.(ts|js)\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gflores05/covid-19-stats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gflores05/covid-19-stats/issues"
+  },
+  "homepage": "https://github.com/gflores05/covid-19-stats#readme",
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}
