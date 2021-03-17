@@ -28,8 +28,9 @@
     "linebreak-style": ["error", "unix"],
     "object-curly-spacing": ["error", "always"],
     "semi": ["error", "always"],
-    
+
     // disable rules from base configurations
-    "no-console": "off"
+    "no-console": "off",
+    "react/prop-types": ["off"]
   }
 }
