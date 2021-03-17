@@ -1,5 +1,5 @@
 export interface PropertyBase {
-  M_pop?: string;
+  '1M_pop'?: string;
   total: number;
 }
 
@@ -15,7 +15,7 @@ export interface Deaths extends PropertyBase {
 }
 
 export interface Stats {
-  id: string;
+  _id: string;
   continent: string;
   country: string;
   population: number;

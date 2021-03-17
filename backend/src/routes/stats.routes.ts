@@ -20,8 +20,12 @@ export class StatsRoutes extends RoutesConfig<StatsController> {
 
     this.app
       .route(`${BASE_PATH}/:id`)
-      .get((req, res) => this.controller.findById(req, res))
+      .get((req, res) => this.controller.findByCountry(req, res))
       .put((req, res) => this.controller.update(req, res));
+
+    this.app
+      .route('/sync')
+      .post((req, res) => this.controller.syncData(req, res));
 
     return this.app;
   }
