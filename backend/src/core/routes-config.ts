@@ -1,8 +1,6 @@
 import { Application } from 'express';
 
-export interface IRoutesConfig {
-  configureRoutes(): Application;
-}
+import { IRoutesConfig } from '@covid19/domain';
 
 export abstract class RoutesConfig<T> implements IRoutesConfig {
   readonly app: Application;

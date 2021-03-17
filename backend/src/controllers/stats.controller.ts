@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
+import { Inject, Service } from 'typedi';
 
-import { StatsService } from '@covid19/services';
+import { IStatsService } from '@covid19/domain';
 
+@Service()
 export class StatsController {
-  constructor(private service: StatsService) {}
+  constructor(@Inject('stats.service') private service: IStatsService) {}
 
   async create(req: Request, res: Response) {
     const id = await this.service.create(req.body);

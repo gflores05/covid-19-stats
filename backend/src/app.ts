@@ -1,15 +1,19 @@
+import 'reflect-metadata';
+import { Container } from 'typedi';
 import * as express from 'express';
 import { json } from 'body-parser';
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import * as cors from 'cors';
 
-import { IRoutesConfig } from '@covid19/core';
-import { StatsController } from '@covid19/controllers';
-import { StatsService } from '@covid19/services';
-import { StatsRoutes } from '@covid19/routes';
+import { IRoutesConfig } from '@covid19/domain';
 
 const app: express.Application = express();
+
+Container.set<express.Application>('app', app);
+
+import '@covid19/services';
+import '@covid19/routes';
 
 const routes: IRoutesConfig[] = [];
 
@@ -35,6 +39,6 @@ app.use(
   })
 );
 
-routes.push(new StatsRoutes(app, new StatsController(StatsService.instance)));
+routes.push(Container.get<IRoutesConfig>('stats.routes'));
 
 export default app;

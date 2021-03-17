@@ -11,17 +11,12 @@
     "target": "es5",
     "module": "esnext",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "lib": ["es2018", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@covid19/types": ["src/types/index.ts"],
-      "@covid19/core": ["src/core/index.ts"],
-      "@covid19/models": ["src/models/index.ts"],
-      "@covid19/services": ["src/services/index.ts"],
-      "@covid19/controllers": ["src/controllers/index.ts"],
-      "@covid19/routes": ["src/routes/index.ts"]
+      "@covid19/*": ["src/*"]
     },
     "outDir": "./dist",
     "types": ["node"]

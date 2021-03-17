@@ -1,16 +1,12 @@
+import { Service } from 'typedi';
+
 import { Stats } from '@covid19/models';
 import { Page } from '@covid19/types';
 
-export class StatsService {
-  private constructor() {}
+import { IStatsService } from '@covid19/domain';
 
-  static singleton: StatsService;
-
-  static get instance() {
-    StatsService.singleton = StatsService.singleton || new StatsService();
-    return StatsService.singleton;
-  }
-
+@Service('stats.service')
+export class StatsService implements IStatsService {
   async create(stats: Stats): Promise<string> {
     // TODO: insert stats in database
     return 'id';
