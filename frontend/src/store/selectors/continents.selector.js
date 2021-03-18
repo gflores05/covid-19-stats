@@ -4,7 +4,7 @@ const selectContinents = (state) => state.continents;
 
 export const selectContinentsList = createSelector(
   selectContinents,
-  (continents) => continents.list.map((item) => item.name)
+  (continents) => continents.list
 );
 
 export const selectIsContinentsLoading = createSelector(
