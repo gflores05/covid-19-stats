@@ -17,6 +17,8 @@ Container.set('database.uri', process.env.DB_URI);
 Container.set('database.name', process.env.DB_NAME);
 Container.set('datasource.url', process.env.SOURCE_URL);
 Container.set('datasource.apikey', process.env.SOURCE_API_KEY);
+Container.set('auth.secret', process.env.AUTH_SECRET);
+Container.set('auth.expiration', parseInt(process.env.AUTH_EXPIRATION, 10));
 
 import '@covid19/repository';
 import '@covid19/services';
@@ -46,6 +48,7 @@ app.use(
   })
 );
 
+routes.push(Container.get<IRoutesConfig>('auth.routes'));
 routes.push(Container.get<IRoutesConfig>('stats.routes'));
 routes.push(Container.get<IRoutesConfig>('continents.routes'));
 

@@ -1,7 +1,7 @@
 import { FilterQuery } from 'mongodb';
 
-import { Continent, Stats } from '@covid19/models';
-import { Page } from '@covid19/types';
+import { Continent, Stats, User } from '@covid19/models';
+import { Auth, Login, Page } from '@covid19/types';
 
 export interface IStatsService {
   create(stats: Stats): Promise<string>;
@@ -15,4 +15,12 @@ export interface IStatsService {
 export interface IContinentService {
   list(query: FilterQuery<Continent>, page?: Page): Promise<Continent[]>;
   syncData(data): Promise<number>;
+}
+
+export interface IAuthService {
+  register(user: User): Promise<Auth>;
+  login(user: Login): Promise<Auth>;
+  refreshToken(auth: Auth): Promise<Auth>;
+  verify(auth: Auth): Promise<Auth>;
+  getByUsername(username: string): Promise<User>;
 }
