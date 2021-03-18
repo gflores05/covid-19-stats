@@ -1,16 +1,17 @@
 import { Service, Inject } from 'typedi';
 import axios from 'axios';
+import { FilterQuery } from 'mongodb';
 
 import { Stats } from '@covid19/models';
 import { Page } from '@covid19/types';
-import { IStatsService } from '@covid19/domain';
+import { IContinentService, IStatsService } from '@covid19/domain';
 import { IRepository } from '@covid19/domain/repository';
-import { FilterQuery } from 'mongodb';
 
 @Service('stats.service')
 export class StatsService implements IStatsService {
   constructor(
     @Inject('stats.repository') private repository: IRepository<Stats>,
+    @Inject('continents.service') private contService: IContinentService,
     @Inject('datasource.url') private sourceEndpoint: string,
     @Inject('datasource.apikey') private sourceApiKey: string
   ) {}
@@ -74,6 +75,8 @@ export class StatsService implements IStatsService {
       inserteds += result;
       i += maxPerPage;
     }
+
+    await this.contService.syncData(data);
 
     return inserteds;
   }

@@ -47,5 +47,6 @@ app.use(
 );
 
 routes.push(Container.get<IRoutesConfig>('stats.routes'));
+routes.push(Container.get<IRoutesConfig>('continents.routes'));
 
 export default app;
