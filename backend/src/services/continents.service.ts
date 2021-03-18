@@ -20,9 +20,16 @@ export class ContinentsService implements IContinentService {
   }
 
   async syncData(data): Promise<number> {
-    const continents = Object.keys(
-      groupBy(data, 'continent')
-    ).map((continent) => ({ _id: null, name: continent }));
+    const groupedData = groupBy(data, 'continent');
+    const continents = Object.keys(groupedData).map((continent) => {
+      return {
+        _id: null,
+        name: continent,
+        countries: groupedData[continent].map((stat) => stat.country)
+      };
+    });
+
+    await this.repository.deleteMany({});
 
     const result = await this.repository.insertMany(continents);
 
