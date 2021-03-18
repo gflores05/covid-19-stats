@@ -24,6 +24,11 @@ function* removeAuthCookies() {
   yield cookies.remove('username');
 }
 
+function* logout() {
+  yield removeAuthCookies();
+  yield put(actions.logoutSuccess());
+}
+
 function* verifyLogin() {
   const accessToken = cookies.get('accessToken');
 
@@ -112,6 +117,6 @@ export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_REFRESH_TOKEN, refreshToken);
   yield takeEvery(actionTypes.AUTH_REFRESH_TOKEN_SUCCESS, saveAuthCookies);
   yield takeEvery(actionTypes.AUTH_REFRESH_TOKEN_FAIL, removeAuthCookies);
-  yield takeEvery(actionTypes.AUTH_LOGOUT, removeAuthCookies);
+  yield takeEvery(actionTypes.AUTH_LOGOUT, logout);
   yield takeEvery(actionTypes.AUTH_VERIFY_LOGIN, verifyLogin);
 }

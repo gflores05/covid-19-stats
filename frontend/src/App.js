@@ -22,7 +22,7 @@ function App(props) {
 
   if (props.isLoggedIn) {
     return (
-      <Layout>
+      <Layout onLogout={props.logout} username={props.username}>
         <Switch>
           <Route path="/" exact component={Stats}></Route>
           <Redirect to="/"></Redirect>
@@ -51,7 +51,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    verifyLogin: () => dispatch(actions.verifyLogin())
+    verifyLogin: () => dispatch(actions.verifyLogin()),
+    logout: () => dispatch(actions.logout())
   };
 };
 
