@@ -5,6 +5,7 @@ import { Stats } from '@covid19/models';
 import { Page } from '@covid19/types';
 import { IStatsService } from '@covid19/domain';
 import { IRepository } from '@covid19/domain/repository';
+import { FilterQuery } from 'mongodb';
 
 @Service('stats.service')
 export class StatsService implements IStatsService {
@@ -47,8 +48,8 @@ export class StatsService implements IStatsService {
     return result;
   }
 
-  async list(page: Page): Promise<Stats[]> {
-    const result = await this.repository.find({}, page);
+  async list(query: FilterQuery<Stats>, page?: Page): Promise<Stats[]> {
+    const result = await this.repository.find(query, page);
 
     return result;
   }
