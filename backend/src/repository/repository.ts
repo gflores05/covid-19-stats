@@ -1,4 +1,5 @@
 import { MongoClient, FilterQuery, OptionalId } from 'mongodb';
+import { omit } from 'lodash';
 
 import { IRepository } from '@covid19/domain/repository';
 import { Page } from '@covid19/types';
@@ -72,9 +73,13 @@ export abstract class Repository<T> implements IRepository<T> {
           }
         });
       } else {
-        const result = await collection.findOneAndReplace(query, doc as any, {
-          upsert: true
-        });
+        const result = await collection.findOneAndReplace(
+          query,
+          omit(doc, ['_id']),
+          {
+            upsert: true
+          }
+        );
 
         current = result.value;
       }
