@@ -12,7 +12,7 @@ function* loadContinents(action) {
 
     yield put(actions.loadContinentsSuccess(response.data.results));
   } catch (error) {
-    console.error(error);
+    yield put(actions.loadContinentsFail(error));
   }
 }
 

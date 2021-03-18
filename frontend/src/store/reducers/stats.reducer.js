@@ -9,9 +9,9 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.LOAD_CONTINENTS:
-    case actionTypes.LOAD_CONTINENTS_SUCCESS:
-    case actionTypes.LOAD_CONTINENTS_FAIL:
+    case actionTypes.LOAD_STATS:
+    case actionTypes.LOAD_STATS_SUCCESS:
+    case actionTypes.LOAD_STATS_FAIL:
       return updateObject(state, omit(action, ['type', 'error']));
     default:
       return state;

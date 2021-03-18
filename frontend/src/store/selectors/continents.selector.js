@@ -6,3 +6,8 @@ export const selectContinentsList = createSelector(
   selectContinents,
   (continents) => continents.list.map((item) => item.name)
 );
+
+export const selectIsContinentsLoading = createSelector(
+  selectContinents,
+  (continents) => continents.loading
+);

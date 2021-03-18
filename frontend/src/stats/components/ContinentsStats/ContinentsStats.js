@@ -1,6 +1,6 @@
 import React from 'react';
 import { groupBy } from 'lodash';
-import { Accordion } from 'react-bootstrap';
+import { Accordion, Spinner } from 'react-bootstrap';
 
 import { ContinentCard } from '../ContinentCard/ContinentCard';
 
@@ -12,7 +12,8 @@ export const ContinentsStats = (props) => {
       <ContinentCard
         continent={continent}
         stats={groupedData[continent]}
-        onLoadContinent={(cont) => props.onLoadContinent(cont)}
+        statsLoading={props.statsLoading}
+        onLoadContinent={() => props.onLoadContinent(continent)}
         key={i}
       ></ContinentCard>
     );
@@ -21,7 +22,11 @@ export const ContinentsStats = (props) => {
   return (
     <>
       <h1>Covid 19 Statistics</h1>
-      <Accordion>{cards}</Accordion>
+      {props.continentsLoading ? (
+        <Spinner animation="border" />
+      ) : (
+        <Accordion>{cards}</Accordion>
+      )}
     </>
   );
 };

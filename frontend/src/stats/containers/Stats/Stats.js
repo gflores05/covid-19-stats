@@ -12,24 +12,28 @@ export const _Stats = (props) => {
 
   return (
     <ContinentsStats
-      stats={[]}
+      stats={props.stats}
       continents={props.continents}
-      onLoadContinent={(continent) => {
-        console.log(continent);
-      }}
+      statsLoading={props.statsLoading}
+      continentsLoading={props.continentsLoading}
+      onLoadContinent={props.loadStats}
     ></ContinentsStats>
   );
 };
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
   return {
-    continents: selectors.selectContinentsList(state)
+    continents: selectors.selectContinentsList(state),
+    continentsLoading: selectors.selectIsContinentsLoading(state),
+    stats: selectors.selectStatsList(state),
+    statsLoading: selectors.selectIsStatsLoading(state)
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadContinents: () => dispatch(actions.loadContinents())
+    loadContinents: () => dispatch(actions.loadContinents()),
+    loadStats: (continent) => dispatch(actions.loadStats(continent))
   };
 };
 
