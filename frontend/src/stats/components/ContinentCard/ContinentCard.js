@@ -4,7 +4,7 @@ import { Card, Button, Accordion } from 'react-bootstrap';
 import { StatsTable } from '../StatsTable/StatsTable';
 
 export const ContinentCard = ({ continent, stats, onLoadContinent }) => {
-  const countriesTables = stats.map((stats, i) => (
+  const countriesTables = (stats || []).map((stats, i) => (
     <StatsTable key={i} stats={stats}></StatsTable>
   ));
 

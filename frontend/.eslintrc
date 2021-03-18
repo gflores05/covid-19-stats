@@ -28,7 +28,7 @@
     "linebreak-style": ["error", "unix"],
     "object-curly-spacing": ["error", "always"],
     "semi": ["error", "always"],
-
+    "no-unused-vars": ["warn"],
     // disable rules from base configurations
     "no-console": "off",
     "react/prop-types": ["off"]
