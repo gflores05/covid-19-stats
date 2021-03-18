@@ -42,18 +42,17 @@ export const loginFail = (error) => {
   };
 };
 
-export const refreshToken = (auth) => {
+export const refreshToken = (retry) => {
   return {
     type: actionTypes.AUTH_REFRESH_TOKEN,
-    auth
+    retry
   };
 };
 
-export const refreshTokenSuccess = (auth, retry) => {
+export const refreshTokenSuccess = (auth) => {
   return {
     type: actionTypes.AUTH_REFRESH_TOKEN_SUCCESS,
-    auth,
-    retry
+    auth
   };
 };
 

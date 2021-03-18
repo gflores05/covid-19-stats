@@ -79,9 +79,15 @@ function* login(action) {
 
 function* refreshToken(action) {
   try {
+    const refreshToken = cookies.get('refreshToken');
+    const username = cookies.get('username');
+
     const response = yield axios.post(
       `${process.env.REACT_APP_API_URL}/auth/refreshToken`,
-      action.auth
+      {
+        refreshToken,
+        username
+      }
     );
 
     if (response.status === 200) {
