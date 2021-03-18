@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Form, Button, Jumbotron, Row, Col } from 'react-bootstrap';
+import {
+  Form,
+  Button,
+  Jumbotron,
+  Row,
+  Col,
+  Alert,
+  Spinner
+} from 'react-bootstrap';
 
 export const LoginForm = (props) => {
   const [validated, setValidated] = useState(false);
@@ -11,6 +19,7 @@ export const LoginForm = (props) => {
       <Col xs="12" lg="8">
         <Jumbotron>
           <h1>Login</h1>
+          {props.error && <Alert variant="danger">{props.error}</Alert>}
           <Form onSubmit={handleSubmit(props.onLogin)} validated={validated}>
             <Form.Group controlId="username">
               <Form.Label>User</Form.Label>
@@ -38,17 +47,22 @@ export const LoginForm = (props) => {
                 {errors.password?.type}
               </Form.Control.Feedback>
             </Form.Group>
-
-            <Button
-              onClick={() => setValidated(true)}
-              variant="primary"
-              type="submit"
-            >
-              Login
-            </Button>
-            <Button variant="accent" type="button" onClick={props.onSignup}>
-              Signup
-            </Button>
+            {props.loading ? (
+              <Spinner animation="border" />
+            ) : (
+              <>
+                <Button
+                  onClick={() => setValidated(true)}
+                  variant="primary"
+                  type="submit"
+                >
+                  Login
+                </Button>
+                <Button variant="accent" type="button" onClick={props.onSignup}>
+                  Signup
+                </Button>
+              </>
+            )}
           </Form>
         </Jumbotron>
       </Col>

@@ -25,6 +25,7 @@ function App(props) {
       <Layout>
         <Switch>
           <Route path="/" exact component={Stats}></Route>
+          <Redirect to="/"></Redirect>
         </Switch>
       </Layout>
     );

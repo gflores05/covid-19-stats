@@ -46,7 +46,7 @@ function* verifyLogin() {
 function* signup(action) {
   try {
     const response = yield axios.post(
-      `${process.env.REACT_APP_API_URL}/signup`,
+      `${process.env.REACT_APP_API_URL}/auth/signup`,
       action.user
     );
 
@@ -56,14 +56,14 @@ function* signup(action) {
       yield put(actions.signupFail(response.data.status));
     }
   } catch (error) {
-    yield put(actions.signupFail(error));
+    yield put(actions.signupFail(error.response.data.status));
   }
 }
 
 function* login(action) {
   try {
     const response = yield axios.post(
-      `${process.env.REACT_APP_API_URL}/login`,
+      `${process.env.REACT_APP_API_URL}/auth/login`,
       action.user
     );
 
@@ -73,14 +73,14 @@ function* login(action) {
       yield put(actions.loginFail(response.data.status));
     }
   } catch (error) {
-    yield put(actions.loginFail(error));
+    yield put(actions.loginFail(error.response.data.status));
   }
 }
 
 function* refreshToken(action) {
   try {
     const response = yield axios.post(
-      `${process.env.REACT_APP_API_URL}/refreshToken`,
+      `${process.env.REACT_APP_API_URL}/auth/refreshToken`,
       action.auth
     );
 
@@ -94,7 +94,7 @@ function* refreshToken(action) {
       yield put(actions.refreshTokenFail(response.data.status));
     }
   } catch (error) {
-    yield put(actions.refreshTokenFail(error));
+    yield put(actions.refreshTokenFail(error.response.data.status));
   }
 }
 

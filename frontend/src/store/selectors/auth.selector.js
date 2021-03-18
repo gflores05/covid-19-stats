@@ -16,3 +16,5 @@ export const selectIsAuthLoading = createSelector(
   selectAuth,
   (auth) => auth.loading
 );
+
+export const selectAuthError = createSelector(selectAuth, (auth) => auth.error);
