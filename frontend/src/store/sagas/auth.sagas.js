@@ -18,10 +18,29 @@ function* saveAuthCookies(action) {
   }
 }
 
-function* removeAuthCookies(action) {
+function* removeAuthCookies() {
   yield cookies.remove('accessToken');
   yield cookies.remove('refreshToken');
   yield cookies.remove('username');
+}
+
+function* verifyLogin() {
+  const accessToken = cookies.get('accessToken');
+
+  if (accessToken) {
+    const refreshToken = cookies.get('refreshToken');
+    const username = cookies.get('username');
+
+    yield put(
+      actions.verifyLoginSuccess({
+        username,
+        accessToken,
+        refreshToken
+      })
+    );
+  } else {
+    yield put(actions.verifyLoginSuccess(null));
+  }
 }
 
 function* signup(action) {
@@ -67,6 +86,7 @@ function* refreshToken(action) {
 
     if (response.status === 200) {
       yield put(actions.refreshTokenSuccess(response.data));
+
       if (action.retry) {
         yield put(action.retry.func(action.retry.data));
       }
@@ -87,4 +107,5 @@ export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_REFRESH_TOKEN_SUCCESS, saveAuthCookies);
   yield takeEvery(actionTypes.AUTH_REFRESH_TOKEN_FAIL, removeAuthCookies);
   yield takeEvery(actionTypes.AUTH_LOGOUT, removeAuthCookies);
+  yield takeEvery(actionTypes.AUTH_VERIFY_LOGIN, verifyLogin);
 }

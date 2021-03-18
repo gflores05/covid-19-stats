@@ -1,21 +1,57 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
+import React, { useEffect } from 'react';
+import {
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom/cjs/react-router-dom.min';
+import { connect } from 'react-redux';
+
+import * as actions from './store/actions';
+import * as selectors from './store/selectors';
 
 import { Stats } from './stats';
-import { Layout } from './hoc';
+import { Login, Signup } from './auth';
+import { Layout, AuthLayout } from './hoc';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  return (
-    <Switch>
+function App(props) {
+  useEffect(() => {
+    props.verifyLogin();
+  }, []);
+
+  if (props.isLoggedIn) {
+    return (
       <Layout>
         <Switch>
           <Route path="/" exact component={Stats}></Route>
         </Switch>
       </Layout>
-    </Switch>
-  );
+    );
+  } else {
+    return (
+      <AuthLayout>
+        <Switch>
+          <Route path="/login" exact component={Login}></Route>
+          <Route path="/signup" exact component={Signup}></Route>
+          <Redirect path="/" to="/login"></Redirect>
+        </Switch>
+      </AuthLayout>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: selectors.selectIsLoggedIn(state),
+    username: selectors.selectUsername(state)
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    verifyLogin: () => dispatch(actions.verifyLogin())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

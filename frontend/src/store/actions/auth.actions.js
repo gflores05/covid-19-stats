@@ -76,7 +76,7 @@ export const logoutSuccess = () => {
   };
 };
 
-export const logoutFail = () => {
+export const logoutFail = (error) => {
   return {
     type: actionTypes.AUTH_LOGOUT_FAIL,
     error
