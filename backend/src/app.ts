@@ -22,6 +22,7 @@ Container.set('auth.expiration', parseInt(process.env.AUTH_EXPIRATION, 10));
 
 import '@covid19/repository';
 import '@covid19/services';
+import '@covid19/middlewares';
 import '@covid19/routes';
 
 const routes: IRoutesConfig[] = [];
