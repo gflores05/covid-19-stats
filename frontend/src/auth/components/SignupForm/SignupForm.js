@@ -1,17 +1,43 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Form, Button, Jumbotron, Row, Col } from 'react-bootstrap';
+import {
+  Form,
+  Button,
+  Jumbotron,
+  Row,
+  Col,
+  Spinner,
+  Alert
+} from 'react-bootstrap';
 
 export const SignupForm = (props) => {
-  const [validated, setValidated] = useState(false);
+  const [validated, setValidated] = useState({ form: false, passmatch: true });
   const { register, handleSubmit, errors } = useForm();
+
+  const onSignup = (data) => {
+    if (data.password !== data.confPassword) {
+      setValidated({
+        ...validated,
+        passmatch: false
+      });
+    } else {
+      props.onSignup({
+        username: data.username,
+        password: data.password
+      });
+    }
+  };
 
   return (
     <Row className="justify-content-lg-center">
       <Col xs="12" lg="8">
         <Jumbotron>
           <h1>Signup</h1>
-          <Form onSubmit={handleSubmit(props.onSignup)} validated={validated}>
+          {props.error && <Alert variant="danger">{props.error}</Alert>}
+          {!validated.passmatch && (
+            <Alert variant="danger">Passwords must match</Alert>
+          )}
+          <Form onSubmit={handleSubmit(onSignup)} validated={validated.form}>
             <Form.Group controlId="username">
               <Form.Label>User</Form.Label>
               <Form.Control
@@ -52,17 +78,22 @@ export const SignupForm = (props) => {
                 {errors.confPassword?.type}
               </Form.Control.Feedback>
             </Form.Group>
-
-            <Button
-              onClick={() => setValidated(true)}
-              variant="primary"
-              type="submit"
-            >
-              Signup
-            </Button>
-            <Button variant="accent" type="button" onClick={props.onLogin}>
-              Login
-            </Button>
+            {props.loading ? (
+              <Spinner animation="border" />
+            ) : (
+              <>
+                <Button
+                  onClick={() => setValidated({ ...validated, form: true })}
+                  variant="primary"
+                  type="submit"
+                >
+                  Signup
+                </Button>
+                <Button variant="accent" type="button" onClick={props.onLogin}>
+                  Login
+                </Button>
+              </>
+            )}
           </Form>
         </Jumbotron>
       </Col>
