@@ -3,10 +3,13 @@ import { Row, Col } from 'react-bootstrap';
 import { find } from 'lodash';
 
 export const Search = ({ continents, onSearch }) => {
-  const [countries, setCountries] = useState(['All']);
+  const [search, setSearch] = useState({
+    countries: ['*'],
+    continent: '*'
+  });
 
   const continentsOptions = [
-    { name: 'All', countries: ['All'] },
+    { name: '*', countries: ['*'] },
     ...continents
   ].map((continent, i) => (
     <option value={continent.name} key={i}>
@@ -14,30 +17,41 @@ export const Search = ({ continents, onSearch }) => {
     </option>
   ));
 
-  const countriesOptions = countries.map((country, i) => (
+  const countriesOptions = search.countries.map((country, i) => (
     <option value={country} key={i}>
       {country}
     </option>
   ));
 
   const onSelectContinent = (event) => {
-    const selected = event.target.value;
+    const continent = event.target.value;
 
-    setCountries(['All', ...find(continents, { name: selected }).countries]);
-    onSearch(selected, 'All');
+    setSearch({
+      continent,
+      countries: [
+        '*',
+        ...(find(continents, { name: continent }) || { countries: [] })
+          .countries
+      ]
+    });
+    onSearch(continent, '*');
+  };
+
+  const onSelectCountry = (event) => {
+    const country = event.target.value;
+
+    onSearch(search.continent, country);
   };
 
   return (
     <Row>
       <Col xs="12" md="6">
         <label>Continents</label>
-        <select className="form-select" onChange={onSelectContinent}>
-          {continentsOptions}
-        </select>
+        <select onChange={onSelectContinent}>{continentsOptions}</select>
       </Col>
       <Col xs="12" md="6">
         <label>Countries</label>
-        <select className="form-select">{countriesOptions}</select>
+        <select onChange={onSelectCountry}>{countriesOptions}</select>
       </Col>
     </Row>
   );

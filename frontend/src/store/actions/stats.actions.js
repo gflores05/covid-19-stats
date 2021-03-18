@@ -1,10 +1,11 @@
 import * as actionTypes from './actionTypes';
 
-export const loadStats = (continent) => {
+export const loadStats = (continent, country) => {
   return {
     type: actionTypes.LOAD_STATS,
     loading: true,
-    continent
+    continent,
+    country
   };
 };
 

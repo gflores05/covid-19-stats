@@ -4,10 +4,15 @@ import axios from 'axios';
 import * as actionTypes from '../actions/actionTypes';
 import * as actions from '../actions';
 
-function* loadStats({ continent }) {
+function* loadStats({ continent, country }) {
+  let query = '?';
+
+  query += continent === '*' ? '' : `continent=${continent}&`;
+  query += country === '*' ? '' : `country=${country}`;
+
   try {
     const response = yield axios.get(
-      `${process.env.REACT_APP_API_URL}/statistics?continent=${continent}`
+      `${process.env.REACT_APP_API_URL}/statistics${query}`
     );
 
     yield put(actions.loadStatsSuccess(response.data.results));

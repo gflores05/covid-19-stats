@@ -33,7 +33,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadContinents: () => dispatch(actions.loadContinents()),
-    loadStats: (continent) => dispatch(actions.loadStats(continent))
+    loadStats: (continent, country) =>
+      dispatch(actions.loadStats(continent, country))
   };
 };
 
