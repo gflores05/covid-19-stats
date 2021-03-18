@@ -1,9 +1,15 @@
 import React from 'react';
 
+import { ContinentsStats } from '../../components';
+
 export const Stats = () => {
   return (
-    <>
-      <h1>Stats</h1>
-    </>
+    <ContinentsStats
+      stats={[]}
+      continents={[]}
+      onLoadContinent={(continent) => {
+        console.log(continent);
+      }}
+    ></ContinentsStats>
   );
 };
