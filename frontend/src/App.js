@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import * as actions from './store/actions';
 import * as selectors from './store/selectors';
 
-import { Stats } from './stats';
+import { Stats, CountryStats } from './stats';
 import { Login, Signup } from './auth';
 import { Layout, AuthLayout } from './hoc';
 
@@ -24,8 +24,9 @@ function App(props) {
     return (
       <Layout onLogout={props.logout} username={props.username}>
         <Switch>
+          <Route path="/stats" exact component={Stats}></Route>
+          <Route path="/stats/:country" exact component={CountryStats}></Route>
           <Route path="/" exact component={Stats}></Route>
-          <Redirect to="/"></Redirect>
         </Switch>
       </Layout>
     );
@@ -35,7 +36,7 @@ function App(props) {
         <Switch>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/signup" exact component={Signup}></Route>
-          <Redirect path="/" to="/login"></Redirect>
+          <Route path="/" exact component={Login}></Route>
         </Switch>
       </AuthLayout>
     );
