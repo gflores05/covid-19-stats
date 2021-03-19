@@ -33,18 +33,18 @@ export abstract class Repository<T> implements IRepository<T> {
 
     const collection = this.getCollection(client);
 
-    try {
-      let cursor = collection.find(query);
+    let cursor = collection.find(query);
 
-      if (page) {
-        const skip = (page.page - 1) * page.size;
-        cursor = cursor.skip(skip).limit(page.size);
-      }
-
-      return await cursor.toArray();
-    } finally {
-      client.close();
+    if (page) {
+      const skip = (page.page - 1) * page.size;
+      cursor = cursor.skip(skip).limit(page.size);
     }
+
+    const result = await cursor.toArray();
+
+    client.close();
+
+    return result;
   }
 
   async findOne(query: FilterQuery<T>): Promise<T> {
@@ -53,7 +53,11 @@ export abstract class Repository<T> implements IRepository<T> {
 
     const collection = this.getCollection(client);
 
-    return await collection.findOne(query);
+    const result = await collection.findOne(query);
+
+    client.close();
+
+    return result;
   }
 
   async upsert(doc: T, query: FilterQuery<T>): Promise<T> {
@@ -62,31 +66,30 @@ export abstract class Repository<T> implements IRepository<T> {
 
     const collection = this.getCollection(client);
 
-    try {
-      let current = await collection.findOne(query);
+    let current = await collection.findOne(query);
 
-      if (current) {
-        await collection.updateOne(query, {
-          $set: {
-            ...current,
-            ...doc
-          }
-        });
-      } else {
-        const result = await collection.findOneAndReplace(
-          query,
-          omit(doc, ['_id']),
-          {
-            upsert: true
-          }
-        );
+    if (current) {
+      await collection.updateOne(query, {
+        $set: {
+          ...current,
+          ...doc
+        }
+      });
+    } else {
+      const result = await collection.findOneAndReplace(
+        query,
+        omit(doc, ['_id']),
+        {
+          upsert: true
+        }
+      );
 
-        current = result.value;
-      }
-      return current;
-    } finally {
-      client.close();
+      current = result.value;
     }
+
+    client.close();
+
+    return current;
   }
 
   async insertMany(docs: T[]): Promise<number> {
@@ -95,15 +98,13 @@ export abstract class Repository<T> implements IRepository<T> {
 
     const collection = this.getCollection(client);
 
-    try {
-      const result = await collection.insertMany(
-        docs.map((doc) => doc as OptionalId<T>)
-      );
+    const result = await collection.insertMany(
+      docs.map((doc) => doc as OptionalId<T>)
+    );
 
-      return result.insertedCount;
-    } finally {
-      client.close();
-    }
+    client.close();
+
+    return result.insertedCount;
   }
 
   async deleteMany(query: FilterQuery<T>): Promise<number> {
@@ -112,12 +113,10 @@ export abstract class Repository<T> implements IRepository<T> {
 
     const collection = this.getCollection(client);
 
-    try {
-      const result = await collection.deleteMany(query);
+    const result = await collection.deleteMany(query);
 
-      return result.deletedCount;
-    } finally {
-      client.close();
-    }
+    client.close();
+
+    return result.deletedCount;
   }
 }
