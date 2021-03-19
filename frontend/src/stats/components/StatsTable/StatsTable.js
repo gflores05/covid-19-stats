@@ -1,5 +1,8 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
 
 export const StatsTable = ({ stats }) => {
   const rows = [
@@ -24,7 +27,12 @@ export const StatsTable = ({ stats }) => {
     <Table striped bordered hover variant="dark">
       <thead>
         <tr>
-          <th>Country: {stats.country}</th>
+          <th colSpan="5">Country: {stats.country}</th>
+          <th>
+            <Link to={`/stats/${stats.country}`} className="btn btn-primary">
+              <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon> Edit Stats
+            </Link>
+          </th>
         </tr>
         <tr>
           <th>Day</th>

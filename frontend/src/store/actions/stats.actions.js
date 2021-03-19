@@ -43,3 +43,49 @@ export const syncStatsFail = (error) => {
     error
   };
 };
+
+export const selectStats = (country) => {
+  return {
+    type: actionTypes.SELECT_STATS,
+    loading: true,
+    country
+  };
+};
+
+export const selectStatsSuccess = (selected) => {
+  return {
+    type: actionTypes.SELECT_STATS_SUCCESS,
+    selected,
+    loading: false
+  };
+};
+
+export const selectStatsFail = (error) => {
+  return {
+    type: actionTypes.SELECT_STATS_FAIL,
+    error,
+    loading: false
+  };
+};
+
+export const saveStats = (stats) => {
+  return {
+    type: actionTypes.SAVE_STATS,
+    stats
+  };
+};
+
+export const saveStatsSuccess = () => {
+  return {
+    type: actionTypes.SAVE_STATS_SUCCESS,
+    loading: false
+  };
+};
+
+export const saveStatsFail = (error) => {
+  return {
+    type: actionTypes.SAVE_STATS_FAIL,
+    error,
+    loading: false
+  };
+};

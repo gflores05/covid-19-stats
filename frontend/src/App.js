@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom/cjs/react-router-dom.min';
+import { Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
 import { connect } from 'react-redux';
 
 import * as actions from './store/actions';

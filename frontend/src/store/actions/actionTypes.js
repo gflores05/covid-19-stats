@@ -14,6 +14,14 @@ export const SYNC_STATS = `${STATS_FEAT}_SYNC`;
 export const SYNC_STATS_SUCCESS = `${STATS_FEAT}_SYNC_SUCCESS`;
 export const SYNC_STATS_FAIL = `${STATS_FEAT}_SYNC_FAIL`;
 
+export const SELECT_STATS = `${STATS_FEAT}_SELECT`;
+export const SELECT_STATS_SUCCESS = `${STATS_FEAT}_SELECT_SUCCESS`;
+export const SELECT_STATS_FAIL = `${STATS_FEAT}_SELECT_FAIL`;
+
+export const SAVE_STATS = `${STATS_FEAT}_SAVE`;
+export const SAVE_STATS_SUCCESS = `${STATS_FEAT}_SAVE_SUCCESS`;
+export const SAVE_STATS_FAIL = `${STATS_FEAT}_SAVE_FAIL`;
+
 export const AUTH_FEAT = 'AUTH';
 
 export const AUTH_LOGIN = `${AUTH_FEAT}_LOGIN`;
