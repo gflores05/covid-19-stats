@@ -15,8 +15,10 @@ export const _Stats = (props) => {
       stats={props.stats}
       continents={props.continents}
       statsLoading={props.statsLoading}
+      syncing={props.syncing}
       continentsLoading={props.continentsLoading}
       onLoadContinent={props.loadStats}
+      onSync={props.syncStats}
     ></ContinentsStats>
   );
 };
@@ -26,7 +28,8 @@ const mapStateToProps = (state) => {
     continents: selectors.selectContinentsList(state),
     continentsLoading: selectors.selectIsContinentsLoading(state),
     stats: selectors.selectStatsList(state),
-    statsLoading: selectors.selectIsStatsLoading(state)
+    statsLoading: selectors.selectIsStatsLoading(state),
+    syncing: selectors.selectIsSyncing(state)
   };
 };
 
@@ -34,7 +37,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadContinents: () => dispatch(actions.loadContinents()),
     loadStats: (continent, country) =>
-      dispatch(actions.loadStats(continent, country))
+      dispatch(actions.loadStats(continent, country)),
+    syncStats: () => dispatch(actions.syncStats())
   };
 };
 

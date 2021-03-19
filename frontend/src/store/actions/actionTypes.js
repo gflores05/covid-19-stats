@@ -10,6 +10,10 @@ export const LOAD_STATS = `${STATS_FEAT}_LOAD`;
 export const LOAD_STATS_SUCCESS = `${STATS_FEAT}_LOAD_SUCCESS`;
 export const LOAD_STATS_FAIL = `${STATS_FEAT}_LOAD_FAIL`;
 
+export const SYNC_STATS = `${STATS_FEAT}_SYNC`;
+export const SYNC_STATS_SUCCESS = `${STATS_FEAT}_SYNC_SUCCESS`;
+export const SYNC_STATS_FAIL = `${STATS_FEAT}_SYNC_FAIL`;
+
 export const AUTH_FEAT = 'AUTH';
 
 export const AUTH_LOGIN = `${AUTH_FEAT}_LOGIN`;

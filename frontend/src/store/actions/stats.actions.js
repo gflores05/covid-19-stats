@@ -24,3 +24,22 @@ export const loadStatsFail = (error) => {
     error
   };
 };
+
+export const syncStats = () => {
+  return {
+    type: actionTypes.SYNC_STATS
+  };
+};
+
+export const syncStatsSuccess = () => {
+  return {
+    type: actionTypes.SYNC_STATS_SUCCESS
+  };
+};
+
+export const syncStatsFail = (error) => {
+  return {
+    type: actionTypes.SYNC_STATS_FAIL,
+    error
+  };
+};

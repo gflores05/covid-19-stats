@@ -11,3 +11,8 @@ export const selectIsStatsLoading = createSelector(
   selectStats,
   (stats) => stats.loading
 );
+
+export const selectIsSyncing = createSelector(
+  selectStats,
+  (stats) => stats.syncing
+);

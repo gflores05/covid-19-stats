@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { groupBy } from 'lodash';
-import { Accordion, Spinner, Row, Col } from 'react-bootstrap';
+import { Accordion, Spinner, Row, Col, Button } from 'react-bootstrap';
 
 import { ContinentCard } from '../ContinentCard/ContinentCard';
 import { Search } from '../Search/Search';
@@ -47,7 +47,20 @@ export const ContinentsStats = (props) => {
 
   return (
     <>
-      <h1>Covid 19 Statistics</h1>
+      <Row className="my-4">
+        <Col xs="8">
+          <h2>Statistics by Country</h2>
+        </Col>
+        <Col xs="4">
+          {props.syncing ? (
+            <span>Syncing...</span>
+          ) : (
+            <Button onClick={props.onSync} variant="primary">
+              Sync Data
+            </Button>
+          )}
+        </Col>
+      </Row>
       <Search continents={props.continents} onSearch={onSearch}></Search>
       <Row>
         <Col xs="12">

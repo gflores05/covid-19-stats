@@ -1,7 +1,5 @@
 import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
-
 export const updateObject = (oldObject, updatedProperties) => {
   return {
     ...oldObject,
@@ -10,5 +8,7 @@ export const updateObject = (oldObject, updatedProperties) => {
 };
 
 export const getAccessToken = () => {
+  const cookies = new Cookies();
+
   return cookies.get('accessToken');
 };

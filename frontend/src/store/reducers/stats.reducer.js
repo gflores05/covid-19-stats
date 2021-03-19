@@ -4,7 +4,8 @@ import { omit } from 'lodash';
 
 const initialState = {
   list: [],
-  loading: false
+  loading: false,
+  syncing: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +14,11 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOAD_STATS_SUCCESS:
     case actionTypes.LOAD_STATS_FAIL:
       return updateObject(state, omit(action, ['type', 'error']));
+    case actionTypes.SYNC_STATS:
+      return updateObject(state, { syncing: true });
+    case actionTypes.SYNC_STATS_SUCCESS:
+    case actionTypes.SYNC_STATS_FAIL:
+      return updateObject(state, { syncing: false });
     default:
       return state;
   }

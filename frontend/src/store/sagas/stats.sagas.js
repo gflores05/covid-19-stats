@@ -26,7 +26,45 @@ function* loadStats({ continent, country }) {
 
     yield put(actions.loadStatsSuccess(response.data.results));
   } catch (error) {
-    yield put(actions.loadStatsFail(error));
+    if (error.response.status === 401) {
+      yield put(
+        actions.refreshToken({
+          func: actions.loadStats,
+          data: {}
+        })
+      );
+    } else {
+      yield put(actions.loadStatsFail(error));
+    }
+  }
+}
+
+function* syncStats() {
+  const accessToken = getAccessToken();
+
+  try {
+    const response = yield axios.post(
+      `${process.env.REACT_APP_API_URL}/sync`,
+      {},
+      {
+        headers: {
+          Authorization: accessToken
+        }
+      }
+    );
+
+    yield put(actions.syncStatsSuccess());
+  } catch (error) {
+    if (error.response.status === 401) {
+      yield put(
+        actions.refreshToken({
+          func: actions.syncStats,
+          data: {}
+        })
+      );
+    } else {
+      yield put(actions.syncStatsFail(error));
+    }
   }
 }
 
@@ -36,6 +74,6 @@ function* loadStatsFail(action) {
 
 export function* watchStats() {
   yield takeEvery(actionTypes.LOAD_STATS, loadStats);
-
   yield takeEvery(actionTypes.LOAD_STATS_FAIL, loadStatsFail);
+  yield takeEvery(actionTypes.SYNC_STATS, syncStats);
 }
