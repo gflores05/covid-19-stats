@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Spinner } from 'react-bootstrap';
 
 export const EditForm = (props) => {
   const [validated, setValidated] = useState(false);
+  const { register, handleSubmit, errors, reset } = useForm();
 
-  const { register, handleSubmit, errors } = useForm({
-    defaultValues: props.stats
-  });
+  useEffect(() => {
+    reset(props.stats);
+  }, [reset, props]);
 
   return (
     <Form onSubmit={handleSubmit(props.onSave)} validated={validated}>

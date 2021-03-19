@@ -26,6 +26,10 @@ export class StatsService implements IStatsService {
   }
 
   async update(country: string, stats: Stats) {
+    const { active, critical, recovered } = stats.cases;
+
+    stats.cases.total = (active || 0) + (recovered || 0) - (critical || 0);
+
     const result = await this.repository.upsert(stats, {
       country
     });
