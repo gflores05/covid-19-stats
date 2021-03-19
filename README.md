@@ -41,3 +41,11 @@ Open a terminal and run:
 ```
 > npm run format:write
 ```
+
+## Tests
+### Backend
+Open a terminal and run:
+```
+> cd backend
+> npm run test
+```
